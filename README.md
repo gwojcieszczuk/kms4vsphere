@@ -3,7 +3,7 @@ Free KMS for vSphere 6.x based on [PyKMIP](https://github.com/OpenKMIP/PyKMIP) p
 
 ### This vapp must be deployed in VCENTER environment.
 
-During deployment fill in IP details (address, netmask, gateway and hostname). This information can be later changed if necessary (vapp options).
+During deployment, fill in IP details (address, netmask, gateway and hostname). This information can be later changed if necessary (vapp options).
 
 Download kms4vsphere [OVA](http://116.203.129.112/kms4vsphere/kms4vsphere-ver2.ova)
 
