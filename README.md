@@ -7,6 +7,8 @@ During deployment, fill in IP details (address, netmask, gateway and hostname). 
 
 Download kms4vsphere [OVA](http://116.203.129.112/kms4vsphere/kms4vsphere-ver2.ova)
 
+SHA256: f5f57e00bb15f591bdebffde9f8ce48835cd31b918a17f72ece49bbad0e9068d
+
 After vapp is deployed and started, access VM via web browser (use VM IP or hostname) to download private and public certificate.
 
 		http://ip-address-of-KMS-VM
