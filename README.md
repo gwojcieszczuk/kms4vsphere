@@ -35,3 +35,66 @@ To add KMS to vcenter:
 			* Click: Make KMS trust vCenter
 			* Choose “KMS certificate and private key”
 			* Paste content of public and private key in provided fields
+
+## Reconfiguring networking inside KMS appliance
+
+Motivation: instead of obtaining network setting from VMware Tools, use static IPv4 settings with *systemd-networkd*.
+
+**Before you start, ensure that you have backed up KMS VM (or at least take snapshot in case you mess things up) !!!**
+
+
+Switch to root account
+
+```console
+sudo -i
+```
+
+
+Remove netplan.io software package from the system.
+
+```console
+dpkg -P netplan.io nplan ubuntu-minimal cloud-init
+```
+
+Enable systemd-networkd service.
+
+```console
+systemctl enable systemd-networkd
+```
+
+Create */etc/systemd/network/ens160.network* file with the following content. Adjust IPv4 address, gateway and DNS to match your network. Use whatever text editor you want (vi/nano).
+
+```
+[Match]
+Name=ens160
+
+[Network]
+Address=192.168.0.178/24
+Gateway=192.168.0.1
+DNS=192.168.0.164
+```
+
+Run these commands
+
+```console
+echo 127.0.0.1 $(hostname) localhost > /etc/hosts
+systemctl unmask systemd-resolved
+rm -f /etc/resolv.conf
+ln -s /run/systemd/resolve/stub-resolv.conf /etc/resolv.conf
+```
+
+Remove old setup for network configuration.
+
+```console
+chattr -i /root/config-net.sh
+rm -f /root/config-net.sh
+rm -f /etc/systemd/system/config-net.service
+systemctl daemon-reload
+```
+
+Reboot appliance
+
+```console
+reboot
+```
+
