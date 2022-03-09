@@ -92,9 +92,35 @@ rm -f /etc/systemd/system/config-net.service
 systemctl daemon-reload
 ```
 
+Create */etc/rc.local* file with the below content, and make it executable.
+
+```bash
+#!/bin/bash
+
+# Set up DNAT to KMS container
+lxc start KMS &> /dev/null
+
+/sbin/sysctl -w net.ipv4.ip_forward=1
+sleep 5
+
+KMS_IP=$(lxc info KMS | grep -A 1 '^Ips:' | tail +2 | awk '{print $3}')
+/sbin/iptables -t nat -I PREROUTING -p tcp -i ens160  --dport 5696 \
+     -j DNAT --to-destination ${KMS_IP}:5696
+/sbin/iptables -t nat -I PREROUTING -p tcp -i ens160  --dport 80 \
+     -j DNAT --to-destination ${KMS_IP}:80
+
+lxc file push /etc/resolv.conf KMS/etc/resolv.conf
+
+```
+
+```console
+chmod +x /etc/rc.local
+```
+
 Reboot appliance
 
 ```console
 reboot
 ```
+
 
