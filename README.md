@@ -101,7 +101,7 @@ Create */etc/rc.local* file with the below content, and make it executable.
 lxc start KMS &> /dev/null
 
 /sbin/sysctl -w net.ipv4.ip_forward=1
-sleep 5
+sleep 20
 
 KMS_IP=$(lxc info KMS | grep -A 1 '^Ips:' | tail +2 | awk '{print $3}')
 /sbin/iptables -t nat -I PREROUTING -p tcp -i ens160  --dport 5696 \
