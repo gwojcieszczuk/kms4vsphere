@@ -5,7 +5,7 @@ Free KMS for vSphere 6.x based on [PyKMIP](https://github.com/OpenKMIP/PyKMIP) p
 
 During deployment, fill in IP details (address, netmask, gateway and hostname). This information can be later changed if necessary (vapp options).
 
-Download kms4vsphere [OVA](https://app.inode.ws/index.php/s/sgA5qDcgAHtXMkm/download/kms4vsphere-ver2.ova)
+Download kms4vsphere [OVA](https://app.inode.ws/index.php/s/xjqjLgywiNN85zK/download/kms4vsphere-ver2.ova)
 
 SHA256: f5f57e00bb15f591bdebffde9f8ce48835cd31b918a17f72ece49bbad0e9068d
 
